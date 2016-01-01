@@ -4,6 +4,13 @@
 This file contains functions to reproduce Figures 2-5 in the paper.
 """
 
+import matplotlib
+matplotlib.use('agg')
+
+import matplotlib.pyplot as plt
+import os
+from simulation_reader import SimulationReader
+
 
 def make_figure_2(simulation_reader, component="y"):
     """
@@ -49,8 +56,11 @@ def make_figure_2(simulation_reader, component="y"):
 
 if __name__ == '__main__':
 
-    data_dir = '../micromagnetic_simulations/output_data/oommf/'
+    data_dir = '../../micromagnetic_simulation_data/reference_data/oommf/'
     output_dir = '../../figures/generated_plots/'
+
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
     # Create SimulationReader which provides a convenient way of
     # reading raw simulation data and computing derived data.
