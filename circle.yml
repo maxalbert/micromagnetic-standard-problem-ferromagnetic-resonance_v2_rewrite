@@ -34,5 +34,5 @@ test:
     #- $MINICONDA_ROOT/bin/tclsh8.5 ${OOMMFTCL} +version
     - tclsh ${OOMMFTCL} +version
     - oommf +version
-    - make -C src/unit_tests
+    - make -C tests/unit_tests
     - cd src && python reproduce_figures.py

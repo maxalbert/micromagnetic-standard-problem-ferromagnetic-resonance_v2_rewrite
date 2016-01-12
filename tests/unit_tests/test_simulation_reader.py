@@ -2,19 +2,19 @@ import numpy as np
 import os
 import unittest
 
-from ..postprocessing import SimulationReader
+from postprocessing import SimulationReader
 
 
 class TestSimulationReader(unittest.TestCase):
     @classmethod
-    def setUp(self):
+    def setUpClass(cls):
         """
         Create an instance of `SimulationReader`
         which can be re-used for each test.
         """
         here = os.path.abspath(os.path.dirname(__file__))
         data_dir = os.path.join(here, '../../micromagnetic_simulation_data/reference_data/oommf/')
-        self.simulation_reader = SimulationReader(data_dir, data_format='OOMMF')
+        cls.simulation_reader = SimulationReader(data_dir, data_format='OOMMF')
 
     def test__get_timesteps_returns_expected_timesteps_from_reference_data(self):
         """
