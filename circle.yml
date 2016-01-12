@@ -36,4 +36,3 @@ test:
     - oommf +version
     - make -C src/unit_tests
     - cd src && python reproduce_figures.py
-    - echo "Test build succeeded."
