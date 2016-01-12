@@ -2,7 +2,7 @@ import numpy as np
 import os
 import unittest
 
-from postprocessing import SimulationReader
+from ..postprocessing import SimulationReader
 
 
 class TestSimulationReader(unittest.TestCase):
