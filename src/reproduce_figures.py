@@ -9,7 +9,7 @@ matplotlib.use('agg')
 
 import matplotlib.pyplot as plt
 import os
-from simulation_reader import SimulationReader
+from postprocessing import SimulationReader
 
 
 def make_figure_2(simulation_reader, component="y"):
@@ -56,8 +56,8 @@ def make_figure_2(simulation_reader, component="y"):
 
 if __name__ == '__main__':
 
-    data_dir = '../../micromagnetic_simulation_data/reference_data/oommf/'
-    output_dir = '../../figures/generated_plots/'
+    data_dir = '../micromagnetic_simulation_data/reference_data/oommf/'
+    output_dir = '../figures/generated_plots/'
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -68,12 +68,12 @@ if __name__ == '__main__':
 
     # Generate plots
     fig2 = make_figure_2(simulation_reader)
-    fig3 = make_figure_3(simulation_reader)
-    fig4 = make_figure_4(simulation_reader)
-    fig5 = make_figure_5(simulation_reader)
+    #fig3 = make_figure_3(simulation_reader)
+    #fig4 = make_figure_4(simulation_reader)
+    #fig5 = make_figure_5(simulation_reader)
 
     # Save plots to output directory
     fig2.savefig(os.path.join(output_dir, 'figure_2.png'))
-    fig3.savefig(os.path.join(output_dir, 'figure_3.png'))
-    fig4.savefig(os.path.join(output_dir, 'figure_4.png'))
-    fig5.savefig(os.path.join(output_dir, 'figure_5.png'))
+    #fig3.savefig(os.path.join(output_dir, 'figure_3.png'))
+    #fig4.savefig(os.path.join(output_dir, 'figure_4.png'))
+    #fig5.savefig(os.path.join(output_dir, 'figure_5.png'))
