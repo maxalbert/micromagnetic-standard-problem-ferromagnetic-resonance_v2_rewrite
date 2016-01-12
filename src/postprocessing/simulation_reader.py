@@ -4,12 +4,12 @@ from fft_handler import FFTHandler
 
 class SimulationReader(object):
     """
-    This class which allows easy high-level access both to
-    "raw" simulation data and to "derived" data (e.g. data
-    obtained via Fourier transforming simulation data).
+    This class allows easy high-level access both to "raw" simulation
+    data and to "derived" data (for example data obtained via Fourier
+    transforming simulation data).
 
-    It is essentially a wrapper around the two classes
-    `DataReader` and `FFTHandler`.
+    It is essentially a wrapper around the two classes `DataReader`
+    and `FFTHandler`.
     """
 
     def __init__(self, data_dir, data_format):
