@@ -1,34 +1,7 @@
 import numpy as np
 import os
 
-
-def _convert_to_unit(val, unit):
-    """
-    Convert `val` from seconds to `unit`, which may either be "s" (= seconds),
-    in which case `val` is returned unchanged, or "ns" (= nanoseconds).
-    """
-    if unit == 's':
-        return val
-    elif unit == 'ns':
-        return val * 1e9
-    else:
-        msg = ("The argument `unit` must be either 's' (= seconds) "
-               "or 'ns' (= nanoseconds). Got: '{}'".format(unit))
-        raise ValueError(msg)
-
-
-def _get_index_of_m_avg_component(component):
-    """
-    Internal helper function to return the column index for
-    the x/y/z component of the average magnetisation.
-    """
-    try:
-        idx = {'x': 1, 'y': 2, 'z': 3}[component]
-    except IndexError:
-        raise ValueError(
-            "Argument 'component' must be one of 'x', 'y', 'z'. "
-            "Got: '{}'".format(component))
-    return idx
+from . import util
 
 
 class DataReader(object):
@@ -59,7 +32,7 @@ class DataReader(object):
         """
         # Timestamps are contained in the first column of the averaged data
         timesteps = self.data_avg[:, 0]
-        return _convert_to_unit(timesteps, unit)
+        return util.convert_to_unit(timesteps, unit)
 
     def get_num_timesteps(self):
         """
@@ -68,24 +41,11 @@ class DataReader(object):
         """
         return len(self.get_timesteps())
 
-    def get_dt(self, unit='s'):
-        """
-        Return the size of the timestep `dt` used during the simulation.
-
-        `dt` is determined as the difference between the first and
-        second timestep of the simulation run (all subsequent timesteps
-        are ignored). In particular, it assumes that all timesteps used
-        in the simulation are equal.
-        """
-        ts = self.get_timesteps()
-        dt = ts[1] - ts[0]
-        return _convert_to_unit(dt, unit)
-
     def get_average_magnetisation(self, component):
         """
         Return a 1D numpy array containing the values of the
         spatially averaged magnetization sampled at the time-
         steps during the simulation.
         """
-        idx = _get_index_of_m_avg_component(component)
+        idx = util.get_index_of_m_avg_component(component)
         return self.data_avg[:, idx]

@@ -38,14 +38,6 @@ class TestDataReader(unittest.TestCase):
 
         self.assertEqual(num_timesteps, 4000)
 
-    def test__get_dt_returns_timestep_from_reference_data(self):
-        """
-        DataReader.get_dt() returns the timestep from the reference data: dt=5 picoseconds.
-        """
-        dt = self.data_reader.get_dt()
-
-        self.assertAlmostEqual(dt, 5e-12)
-
     def test__get_average_magnetisation_returns_array_of_expected_shape(self):
         """
         DataReader.get_average_magnetisation() returns array of expected shape.

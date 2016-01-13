@@ -1,0 +1,42 @@
+def convert_to_unit(val, unit):
+    """
+    Convert the timestep value(s) `val` from seconds to `unit`, which may
+    either be "s" (= seconds), in which case `val` is returned unchanged,
+    or "ns" (= nanoseconds).
+    """
+    if unit == 's':
+        return val
+    elif unit == 'ns':
+        return val * 1e9
+    else:
+        msg = ("The argument `unit` must be either 's' (= seconds) "
+               "or 'ns' (= nanoseconds). Got: '{}'".format(unit))
+        raise ValueError(msg)
+
+
+def get_index_of_m_avg_component(component):
+    """
+    Internal helper function to return the column index for
+    the x/y/z component of the average magnetisation.
+    """
+    try:
+        idx = {'x': 1, 'y': 2, 'z': 3}[component]
+    except IndexError:
+        raise ValueError(
+            "Argument 'component' must be one of 'x', 'y', 'z'. "
+            "Got: '{}'".format(component))
+    return idx
+
+
+def get_timestep_unit(self, freq_unit):
+    """
+    If `freq_unit` is `Hz` then return `s`.
+    If `freq_unit` is `GHz` then return `ns`.
+    In all other cases raise an error.
+    """
+    if freq_unit == 'Hz':
+        return 's'
+    elif freq_unit == 'GHz':
+        return'ns'
+    else:
+        raise ValueError("Invalid unit: '{}'. Allowed values: 's', 'ns'")
