@@ -16,6 +16,7 @@ def _convert_to_unit(val, unit):
                "or 'ns' (= nanoseconds). Got: '{}'".format(unit))
         raise ValueError(msg)
 
+
 def _get_index_of_m_avg_component(component):
     """
     Internal helper function to return the column index for
@@ -30,7 +31,6 @@ def _get_index_of_m_avg_component(component):
     return idx
 
 
-
 class DataReader(object):
     """
     This class encapsulates the reading of raw simulation data
@@ -40,6 +40,7 @@ class DataReader(object):
     various micromagnetic simulation softwares (e.g. OOMMF, Nmag)
     which store their simulation output in different formats.
     """
+
     def __init__(self, data_dir, data_format):
         self.data_dir = data_dir
         self.data_format = data_format
