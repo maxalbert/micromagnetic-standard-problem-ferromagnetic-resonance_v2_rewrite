@@ -17,7 +17,7 @@ class FFTHandler(object):
         return fft_coeffs
 
     def get_fft_frequencies(self, timesteps, unit='Hz'):
-        timestep_unit = util.get_timestep_unit(timesteps, unit)
+        timestep_unit = util.get_timestep_unit(unit)
         dt = util.convert_to_unit(timesteps[1] - timesteps[0], timestep_unit)
 
         n = len(timesteps)

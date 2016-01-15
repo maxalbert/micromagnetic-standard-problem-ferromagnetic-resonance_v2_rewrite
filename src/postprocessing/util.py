@@ -16,19 +16,21 @@ def convert_to_unit(val, unit):
 
 def get_index_of_m_avg_component(component):
     """
-    Internal helper function to return the column index for
-    the x/y/z component of the average magnetisation.
+    Internal helper function to return the column index for the x/y/z
+    component of the average magnetisation. Note that indices start at
+    1, not zero, because the first column contains the timesteps.
+    (TODO: This may be different for other data types, though!)
     """
     try:
         idx = {'x': 1, 'y': 2, 'z': 3}[component]
-    except IndexError:
+    except KeyError:
         raise ValueError(
             "Argument 'component' must be one of 'x', 'y', 'z'. "
             "Got: '{}'".format(component))
     return idx
 
 
-def get_timestep_unit(self, freq_unit):
+def get_timestep_unit(freq_unit):
     """
     If `freq_unit` is `Hz` then return `s`.
     If `freq_unit` is `GHz` then return `ns`.
