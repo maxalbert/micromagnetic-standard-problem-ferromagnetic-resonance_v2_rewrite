@@ -4,6 +4,7 @@ import os
 import unittest
 
 from postprocessing import FFTHandler
+from . import util
 
 
 class TestFFTHandler(unittest.TestCase):
@@ -40,18 +41,16 @@ class TestFFTHandler(unittest.TestCase):
         num_oscillations = 3
         TOL = 1e-14
 
-        # Construct an artificial magnetisation precession with known FFT transform.
-        # This precession is a pure cosine wave with a few oscillations.
-        timesteps = np.linspace(5e-12, 20e-9, num_timesteps)
-        amplitude = 1. / (num_timesteps // 2)
-        m_avg_y = amplitude * np.cos(num_oscillations * (2*np.pi) * timesteps / max(timesteps))
+        timesteps, m_avg_y = util.make_magnetisation_precession(num_timesteps, num_oscillations)
 
-        # Compute the FFT transform and check that the resulting FFT coefficients are as expected:
-        #
-        # (i) The single FFT coefficient corresponding to the number of precessions should be equal to one.
+        # The expected FFT coefficients are all zero except the one
+        # corresponding to the number of oscillations, which should be
+        # equal to 1.
+        spectrum_expected = np.zeros(num_timesteps // 2)
+        spectrum_expected[num_oscillations] = 1.
+
+        # Compute the FFT transform
         spectrum = self.fft_handler.get_spectrum_via_method_1(m_avg_y)
-        self.assertTrue(np.isclose(spectrum[num_oscillations], 1.0, atol=TOL, rtol=0))
 
-        # (ii) All other FFT coefficients should be zero.
-        spectrum[num_oscillations] = 0
-        self.assertTrue(np.allclose(spectrum, 0, atol=TOL, rtol=0))
+        # Compare the expected with the computed spectrum.
+        self.assertTrue(np.allclose(spectrum, spectrum_expected, atol=TOL, rtol=0))
