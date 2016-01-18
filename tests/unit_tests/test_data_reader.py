@@ -23,9 +23,10 @@ class DataReaderTestBase(object):
         timesteps = self.data_reader.get_timesteps()
         timesteps_ns = self.data_reader.get_timesteps(unit='ns')
 
-        # Create arrays of expected timesteps. Note that the initial
-        # timestep at t=0 is not present in the data, i.e. the
-        # timesteps start at t=5 ps.
+        # Create arrays of expected timesteps.
+        #
+        # Note that the initial timestep at t=0 is not present
+        # in the data, i.e. the timesteps start at t=5 ps.
         timesteps_expected = np.linspace(5e-12, 20e-9, 4000)
         timesteps_ns_expected = timesteps_expected * 1e9
 
