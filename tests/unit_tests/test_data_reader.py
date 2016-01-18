@@ -6,6 +6,10 @@ from postprocessing import DataReader
 
 
 class TestDataReader(unittest.TestCase):
+    """
+    Tests for the `DataReader` class.
+    """
+
     @classmethod
     def setUpClass(cls):
         """
@@ -19,11 +23,13 @@ class TestDataReader(unittest.TestCase):
         """
         DataReader.get_timesteps() returns expected timesteps from reference data.
         """
+        # Read timesteps (in units of seconds and nanoseconds).
         timesteps = self.data_reader.get_timesteps()
         timesteps_ns = self.data_reader.get_timesteps(unit='ns')
 
-        # Note that the initial timestep at t=0 is not present in the data,
-        # i.e. the timesteps start at t=5 ps.
+        # Create arrays of expected timesteps. Note that the initial
+        # timestep at t=0 is not present in the data, i.e. the
+        # timesteps start at t=5 ps.
         timesteps_expected = np.linspace(5e-12, 20e-9, 4000)
         timesteps_ns_expected = timesteps_expected * 1e9
 
@@ -40,7 +46,7 @@ class TestDataReader(unittest.TestCase):
 
     def test__get_average_magnetisation_returns_array_of_expected_shape(self):
         """
-        DataReader.get_average_magnetisation() returns array of expected shape.
+        DataReader.get_average_magnetisation() returns 1D array of expected shape.
         """
         for component in ('x', 'y', 'z'):
             m_avg = self.data_reader.get_average_magnetisation(component)
