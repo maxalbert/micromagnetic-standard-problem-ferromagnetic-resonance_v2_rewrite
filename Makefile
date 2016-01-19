@@ -1,4 +1,6 @@
-all: test
+all: unit-tests
 
-test:
+unit-tests:
 	make -C tests/unit_tests/
+
+.PHONY: all unit-tests
