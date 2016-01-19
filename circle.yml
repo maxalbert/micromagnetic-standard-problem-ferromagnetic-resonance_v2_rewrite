@@ -24,7 +24,7 @@ dependencies:
     - conda info -a
 
     # Install OOMMF and relevant Python packages
-    - conda install -c http://conda.anaconda.org/maxalbert numpy pip nose oommf=12a5bis_20120928 matplotlib==1.5.1.post960+g628427a
+    - conda install -c http://conda.anaconda.org/maxalbert numpy pip nose oommf=12a5bis_20120928 matplotlib==1.5.1.post960+g628427a cycler
 
 test:
   override:
