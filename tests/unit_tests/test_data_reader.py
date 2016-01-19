@@ -1,7 +1,6 @@
 import numpy as np
 import os
 from nose.tools import assert_equals, assert_true
-from nose_parameterized import parameterized
 
 from postprocessing import DataReader
 
