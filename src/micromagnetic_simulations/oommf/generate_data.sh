@@ -57,8 +57,7 @@ fi
 # Copy OOMMF scripts from source directory to a temporary directory
 # where we will run the scripts to generate the data.
 #
-#TMPDIR=$(mktemp -d)
-TMPDIR='./foo_test_oommf_scripts'
+TMPDIR=$(mktemp -d)
 
 for FILENAME in $OOMMF_SCRIPTS; do
     cp ./$FILENAME $TMPDIR/$FILENAME;
@@ -87,13 +86,13 @@ repository [1]. It can safely be deleted if it is no longer needed.
 #
 # Run the relaxation stage.
 #
-tclsh $OOMMFTCL boxsi +fg relaxation_stage.mif -exitondone 1
+tclsh $OOMMFTCL boxsi +fg 01_relaxation_stage.mif -exitondone 1
 mv relax-*omf relax.omf
 
 #
 # Run the dynamic stage.
 #
-tclsh $OOMMFTCL boxsi +fg dynamic_stage.mif -exitondone 1
+tclsh $OOMMFTCL boxsi +fg 02_dynamic_stage.mif -exitondone 1
 
 #
 # Extract the columns for time, mx, my, mz and store them in the file "dynamic_txyz.txt".
