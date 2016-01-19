@@ -1,5 +1,5 @@
 import numpy as np
-import os
+from pathlib import Path
 
 from . import util
 
@@ -14,11 +14,11 @@ class DataReader(object):
     """
 
     def __init__(self, data_dir, data_format):
-        self.data_dir = data_dir
+        self.data_dir = Path(data_dir)
         self.data_format = data_format
         assert self.data_format in ['OOMMF']
 
-        data_avg_filename = os.path.join(self.data_dir, 'dynamic_txyz.txt')
+        data_avg_filename = str(self.data_dir.joinpath('dynamic_txyz.txt'))
         self.data_avg = np.loadtxt(data_avg_filename)
 
     def get_timesteps(self, unit='s'):

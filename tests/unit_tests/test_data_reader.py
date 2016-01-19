@@ -1,11 +1,11 @@
 import numpy as np
-import os
 from nose.tools import assert_equals, assert_true
+from pathlib import Path
 
 from postprocessing import DataReader
 
-HERE = os.path.abspath(os.path.dirname(__file__))
-REF_DATA_DIR = os.path.join(HERE, '../../micromagnetic_simulation_data/reference_data/')
+HERE = Path(__file__).parent.resolve()
+REF_DATA_DIR = HERE.joinpath('../../micromagnetic_simulation_data/reference_data/')
 
 
 class DataReaderTestBase(object):
@@ -56,4 +56,4 @@ class TestOOMMFDataReader(DataReaderTestBase):
         """
         Create an instance of `OOMMFDataReader` which can be re-used for each individual test.
         """
-        cls.data_reader = DataReader(os.path.join(REF_DATA_DIR, 'oommf'), data_format='OOMMF')
+        cls.data_reader = DataReader(REF_DATA_DIR.joinpath('oommf/'), data_format='OOMMF')
