@@ -50,7 +50,7 @@ class FigurePlotter(object):
         ax2.set_xlabel('Frequency (GHz)')
         ax2.set_ylabel('Spectral density')
         ax2.set_xlim([0.1, 20])
-        #ax2.set_ylim([1e-5, 1e-0])
+        ax2.set_ylim([1e-5, 1e-0])
         ax2.set_yscale('log')
 
         fig.tight_layout()
