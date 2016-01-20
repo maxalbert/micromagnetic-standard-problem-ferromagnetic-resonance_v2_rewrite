@@ -1,5 +1,5 @@
 import numpy as np
-from nose.tools import assert_equals, assert_true
+from nose.tools import assert_equals, assert_true, assert_raises
 from pathlib import Path
 
 from postprocessing import DataReader
@@ -48,6 +48,12 @@ class DataReaderTestBase(object):
             m_avg = self.data_reader.get_average_magnetisation(component)
 
             assert_equals(m_avg.shape, (4000,))
+
+    def test__data_reader_raises_error_if_data_format_is_not_supported(self):
+        """
+        DataReader raises error during initialisation if data format is not supported.
+        """
+        assert_raises(ValueError, DataReader, REF_DATA_DIR.joinpath('oommf/'), data_format='Foobar')
 
 
 class TestOOMMFDataReader(DataReaderTestBase):

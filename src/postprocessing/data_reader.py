@@ -16,7 +16,11 @@ class DataReader(object):
     def __init__(self, data_dir, data_format):
         self.data_dir = Path(data_dir)
         self.data_format = data_format
-        assert self.data_format in ['OOMMF']
+
+        if self.data_format not in ['OOMMF', 'Nmag']:
+            raise ValueError(
+                ("Unsupported data format: '{}'. Supported values: "
+                 "'OOMMF', 'Nmag'.").format(self.data_format))
 
         data_avg_filename = str(self.data_dir.joinpath('dynamic_txyz.txt'))
         self.data_avg = np.loadtxt(data_avg_filename)
