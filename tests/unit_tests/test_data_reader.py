@@ -49,6 +49,14 @@ class DataReaderTestBase(object):
 
             assert_equals(m_avg.shape, (4000,))
 
+    def test__get_dt_returns_expected_timestep_present_in_reference_data(self):
+        """
+        DataReader.get_dt() returns expected timestep present in reference data.
+        """
+        dt = self.data_reader.get_dt()
+
+        assert_true(np.allclose(dt, 5e-12, atol=0, rtol=1e-14))
+
     def test__data_reader_raises_error_if_data_format_is_not_supported(self):
         """
         DataReader raises error during initialisation if data format is not supported.

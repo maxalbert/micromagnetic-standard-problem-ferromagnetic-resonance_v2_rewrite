@@ -36,6 +36,16 @@ class BaseDataReader(object):
         timesteps = self.data_avg[:, 0]
         return util.convert_to_unit(timesteps, unit)
 
+    def get_dt(self, unit='s'):
+        """
+        Return float representing the timestep used during the simulation.
+        Note that this assumes that all timesteps are equal.
+
+        The argument `unit` can either be 's' (= seconds) or 'ns' (= nanoseconds).
+        """
+        timesteps = self.get_timesteps(unit)
+        return timesteps[1] - timesteps[0]
+
     def get_num_timesteps(self):
         """
         Return number of timesteps at which the magnetisation was saved
