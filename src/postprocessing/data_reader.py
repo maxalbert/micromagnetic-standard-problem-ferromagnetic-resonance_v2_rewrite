@@ -4,7 +4,7 @@ from pathlib import Path
 from . import util
 
 
-class DataReader(object):
+class BaseDataReader(object):
     """
     This class encapsulates the reading of raw simulation data from
     a data directory. It provides a unified interface to the output
@@ -13,17 +13,16 @@ class DataReader(object):
     formats.
     """
 
-    def __init__(self, data_dir, data_format):
+    def __init__(self, data_dir):
         self.data_dir = Path(data_dir)
-        self.data_format = data_format
+        self.data_avg = self._read_average_data()
 
-        if self.data_format not in ['OOMMF', 'Nmag']:
-            raise ValueError(
-                ("Unsupported data format: '{}'. Supported values: "
-                 "'OOMMF', 'Nmag'.").format(self.data_format))
-
-        data_avg_filename = str(self.data_dir.joinpath('dynamic_txyz.txt'))
-        self.data_avg = np.loadtxt(data_avg_filename)
+    def _read_average_data(self):
+        """
+        """
+        raise NotImplementedError(
+            "Data reader of type '{}' does not implement reading of "
+            "spatially averaged magnetisation data.".format(self.__class__))
 
     def get_timesteps(self, unit='s'):
         """
@@ -52,3 +51,40 @@ class DataReader(object):
         """
         idx = util.get_index_of_m_avg_component(component)
         return self.data_avg[:, idx]
+
+
+class OOMMFDataReader(BaseDataReader):
+    def _read_average_data(self):
+        data_avg_filename = str(self.data_dir.joinpath('dynamic_txyz.txt'))
+        return np.loadtxt(data_avg_filename)
+
+
+class NmagDataReader(BaseDataReader):
+    def _read_average_data(self):
+        data_avg_filename = str(self.data_dir.joinpath('dynamic_txyz.txt'))
+        return np.loadtxt(data_avg_filename)
+
+
+#
+# If you want to support additional data formats then you need to
+# create a new subclass of DataReader (similar to OOMMFDataReader and
+# NmagDataReader above) and add it to `data_reader_classes`.
+#
+data_reader_classes = {
+    'OOMMF': OOMMFDataReader,
+    'Nmag': NmagDataReader,
+    }
+
+
+def DataReader(data_path, data_format):
+    """
+    """
+    try:
+        cls = data_reader_classes[data_format]
+    except KeyError:
+        supported_data_formats = list(data_reader_classes.keys())
+        raise ValueError(
+            ("Unsupported data format: '{}'. Supported values: {} "
+             "".format(data_format, supported_data_formats)))
+
+    return cls(data_path)

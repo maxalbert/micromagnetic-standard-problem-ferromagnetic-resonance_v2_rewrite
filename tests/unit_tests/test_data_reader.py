@@ -56,10 +56,19 @@ class DataReaderTestBase(object):
         assert_raises(ValueError, DataReader, REF_DATA_DIR.joinpath('oommf/'), data_format='Foobar')
 
 
-class TestOOMMFDataReader(DataReaderTestBase):
+class TestDataReaderOOMMF(DataReaderTestBase):
     @classmethod
     def setUpClass(cls):
         """
         Create an instance of `OOMMFDataReader` which can be re-used for each individual test.
         """
         cls.data_reader = DataReader(REF_DATA_DIR.joinpath('oommf/'), data_format='OOMMF')
+
+
+class TestDataReaderNmag(DataReaderTestBase):
+    @classmethod
+    def setUpClass(cls):
+        """
+        Create an instance of `NmagDataReader` which can be re-used for each individual test.
+        """
+        cls.data_reader = DataReader(REF_DATA_DIR.joinpath('nmag/'), data_format='Nmag')
