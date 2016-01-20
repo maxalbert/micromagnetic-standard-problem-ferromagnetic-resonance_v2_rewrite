@@ -31,10 +31,9 @@ test:
   override:
     - cat $(which oommf)
     - echo $PATH
-    #- $MINICONDA_ROOT/bin/tclsh8.5 ${OOMMFTCL} +version
     - tclsh ${OOMMFTCL} +version
     - oommf +version
     - make unit-tests
     - make integration-tests
-    - cd src && python reproduce_figures.py
     - make generate-oommf-data
+    - make reproduce-figures-from-scratch

@@ -23,6 +23,9 @@ if __name__ == '__main__':
     if not output_dir.exists():
         output_dir.mkdir(parents=True)
 
+    print("Input data directory: {}".format(data_dir.resolve()))
+    print("Creating figures in output directory: {}".format(output_dir.resolve()))
+
     # Create SimulationReader which provides a convenient way of
     # reading raw simulation data and computing derived data.
     data_reader = DataReader(data_dir, data_format='OOMMF')
