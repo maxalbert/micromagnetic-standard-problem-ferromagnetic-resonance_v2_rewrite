@@ -1,5 +1,6 @@
 *.pyc
 __pycache__
 figures/generated_plots/
+micromagnetic_simulation_data/generated_data
 tests/unit_tests/result_images/
 tests/integration_tests/result_images/
