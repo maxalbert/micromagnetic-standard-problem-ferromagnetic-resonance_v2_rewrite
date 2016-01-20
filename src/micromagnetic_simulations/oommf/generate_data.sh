@@ -100,7 +100,8 @@ tclsh $OOMMFTCL boxsi +fg 02_dynamic_stage.mif -exitondone 1
 tclsh $OOMMFTCL odtcols < "dynamic.odt" 18 14 15 16 > "dynamic_txyz.txt"
 
 #
-# Extract the spatial magnetisation data to 'mxs.npy', 'mys.npy' and 'mzs.npy'
+# Extract the spatial magnetisation data (sampled on a 24 x 24 grid)
+# and store it in three numpy arrays 'mxs.npy', 'mys.npy' and 'mzs.npy'
 #
 python oommf_postprocessing.py
 
