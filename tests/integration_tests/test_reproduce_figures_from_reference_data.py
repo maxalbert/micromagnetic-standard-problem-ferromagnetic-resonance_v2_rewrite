@@ -18,9 +18,25 @@ def test__make_figure_2_OOMMF():
     fig = figure_plotter.make_figure_2()
 
 
+@image_comparison(baseline_images=['figure_3_OOMMF'], extensions=['png', 'pdf'], tol=TOL)
+def test__make_figure_3_OOMMF():
+    data_reader = DataReader(REF_DATA_DIR_OOMMF, data_format='OOMMF')
+    figure_plotter = FigurePlotter(data_reader)
+
+    fig = figure_plotter.make_figure_3()
+
+
 @image_comparison(baseline_images=['figure_2_Nmag'], extensions=['png', 'pdf'], tol=TOL)
 def test__make_figure_2_Nmag():
     data_reader = DataReader(REF_DATA_DIR_NMAG, data_format='Nmag')
     figure_plotter = FigurePlotter(data_reader)
 
     fig = figure_plotter.make_figure_2()
+
+
+@image_comparison(baseline_images=['figure_3_Nmag'], extensions=['png', 'pdf'], tol=TOL)
+def test__make_figure_3_Nmag():
+    data_reader = DataReader(REF_DATA_DIR_NMAG, data_format='Nmag')
+    figure_plotter = FigurePlotter(data_reader)
+
+    fig = figure_plotter.make_figure_3()

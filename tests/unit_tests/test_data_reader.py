@@ -49,6 +49,15 @@ class DataReaderTestBase(object):
 
             assert_equals(m_avg.shape, (4000,))
 
+    def test__get_spatially_resolved_magnetisation_returns_array_of_expected_shape(self):
+        """
+        DataReader.get_spatially_resolved_magnetisation() returns 3D array of expected shape.
+        """
+        for component in ('x', 'y', 'z'):
+            m_full = self.data_reader.get_spatially_resolved_magnetisation(component)
+
+            assert_equals(m_full.shape, (4000, 24, 24))
+
     def test__get_dt_returns_expected_timestep_present_in_reference_data(self):
         """
         DataReader.get_dt() returns expected timestep present in reference data.

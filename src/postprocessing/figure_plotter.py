@@ -62,3 +62,37 @@ class FigurePlotter(object):
 
         fig.tight_layout()
         return fig
+
+    def make_figure_3(self, component='y'):
+        """
+        Create Fig. 3 in the paper.
+
+        Returns a matplotlib figure with two curves for the power
+        spectral densities of the magnetisation dynamics computed
+        via method 1 and 2 (as described in section C1 and C2).
+        """
+        timesteps = self.data_reader.get_timesteps()
+        dt = self.data_reader.get_dt()
+
+        # Read average and spatially resolved magnetisation (y-component).
+        m_avg = self.data_reader.get_average_magnetisation(component)
+        m_full = self.data_reader.get_spatially_resolved_magnetisation(component)
+
+        # Compute frequencies and power spectrum via the two different methods.
+        freqs = self.fft_handler.get_fft_frequencies(timesteps, unit='GHz')
+        psd1 = self.fft_handler.get_spectrum_via_method_1(m_avg)
+        psd2 = self.fft_handler.get_spectrum_via_method_2(m_full)
+
+        # Plot both power spectra into the same figure
+        fig = plt.figure(figsize=(7, 5.5))
+        ax = fig.add_subplot(1, 1, 1)
+        ax.plot(freqs, psd1, label='Method 1')
+        ax.plot(freqs, psd2, color='g', lw=2, label='Method 2')
+        ax.set_xlabel('Frequency (GHz)')
+        ax.set_ylabel('Spectral density')
+        ax.set_xlim([0.2, 20])
+        ax.set_ylim([1e-5, 1e0])
+        ax.set_yscale('log')
+        ax.legend(frameon=False)
+
+        return fig
