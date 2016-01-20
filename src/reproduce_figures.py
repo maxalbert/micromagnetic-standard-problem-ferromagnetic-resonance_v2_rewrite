@@ -33,12 +33,12 @@ if __name__ == '__main__':
 
     # Generate plots
     fig2 = figure_plotter.make_figure_2()
-    #fig3 = figure_plotter.make_figure_3()
+    fig3 = figure_plotter.make_figure_3()
     #fig4 = figure_plotter.make_figure_4()
     #fig5 = figure_plotter.make_figure_5()
 
     # Save plots to output directory
     fig2.savefig(str(output_dir.joinpath('figure_2.png')))
-    #fig3.savefig(output_dir.joinpath('figure_3.png'))
-    #fig4.savefig(output_dir.joinpath('figure_4.png'))
-    #fig5.savefig(output_dir.joinpath('figure_5.png'))
+    fig3.savefig(str(output_dir.joinpath('figure_3.png')))
+    #fig4.savefig(str(output_dir.joinpath('figure_4.png')))
+    #fig5.savefig(str(output_dir.joinpath('figure_5.png')))
