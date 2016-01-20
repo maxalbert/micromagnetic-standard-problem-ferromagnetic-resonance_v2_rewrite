@@ -20,7 +20,7 @@
 set -o nounset
 set -o errexit
 
-NMAG_SCRIPTS="01_relaxation_stage.py 02_dynamic_stage.py"
+NMAG_SCRIPTS="01_relaxation_stage.py 02_dynamic_stage.py nmag_postprocessing.py meshes"
 
 #
 # Determine output directory (use first command line argument if
@@ -50,7 +50,7 @@ fi
 TMPDIR=$(mktemp -d)
 
 for FILENAME in $NMAG_SCRIPTS; do
-    cp ./$FILENAME $TMPDIR/$FILENAME;
+    cp -r ./$FILENAME $TMPDIR/$FILENAME;
 done
 
 #
@@ -81,7 +81,7 @@ nsim 01_relaxation_stage.py --clean
 #
 # Run the dynamic stage.
 #
-nsim 02_dynamic_stage --clean
+nsim 02_dynamic_stage.py --clean
 
 #
 # Extract the columns for time, mx, my, mz and store them in the file "dynamic_txyz.txt".
