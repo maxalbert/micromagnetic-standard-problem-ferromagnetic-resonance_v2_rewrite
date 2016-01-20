@@ -14,7 +14,8 @@ class FigurePlotter(object):
         self.data_reader = data_reader
         self.fft_handler = FFTHandler()
 
-    def make_figure_2(self, component='y'):
+    def make_figure_2(self, component='y', xlim_top=[0, 2.5], ylim_top=None,
+                      xlim_bottom=[0.1, 20], ylim_bottom=[1e-5, 1.]):
         """
         Reproduce Figure 2 in the paper.
 
@@ -24,6 +25,11 @@ class FigurePlotter(object):
 
         You can set the argument `component` to "x" or "z" to plot the ringdown
         dynamics and power spectrum for m_x or m_z, respectively.
+
+        The extra arguments `xlim_top`, `ylim_top`, `xlim_bottom`,`ylim_bottom`
+        can be used to set specific axis limit for the top/bottom subplot. This
+        is useful when comparing figures generated from different data (for
+        example OOMMF, Nmag)
         """
 
         # Read timesteps and spatially averaged magnetisation
@@ -43,14 +49,15 @@ class FigurePlotter(object):
         ax1.plot(ts, mys)
         ax1.set_xlabel('Time (ns)')
         ax1.set_ylabel('Magnetisation in {}'.format(component.upper()))
-        ax1.set_xlim([0, 2.5])
+        ax1.set_xlim(xlim_top)
+        ax1.set_ylim(ylim_top)
 
         # Plot power spectrum into second subplot.
         ax2.plot(freqs, psd, '-', label='Real')
         ax2.set_xlabel('Frequency (GHz)')
         ax2.set_ylabel('Spectral density')
-        ax2.set_xlim([0.1, 20])
-        ax2.set_ylim([1e-5, 1e-0])
+        ax2.set_xlim(xlim_bottom)
+        ax2.set_ylim(ylim_bottom)
         ax2.set_yscale('log')
 
         fig.tight_layout()
